@@ -1,0 +1,17 @@
+﻿[2025-11-18 17:47:23] Função 'criar_cliente' executada com argumentos ([<PessoaFisica: ('luiz fernando', '02529766142')>],) e {}. Retornou None
+[2025-11-18 17:47:32] Função 'criar_conta' executada com argumentos (1, [<PessoaFisica: ('luiz fernando', '02529766142')>], [<ContaCorrente: ('0001', '1', 'luiz fernando')>]) e {}. Retornou None
+[2025-11-18 17:47:35] Função 'depositar' executada com argumentos ([<PessoaFisica: ('luiz fernando', '02529766142')>],) e {}. Retornou None
+[2025-11-18 17:47:39] Função 'sacar' executada com argumentos ([<PessoaFisica: ('luiz fernando', '02529766142')>],) e {}. Retornou None
+[2025-11-18 17:47:47] Função 'exibir_extrato' executada com argumentos ([<PessoaFisica: ('luiz fernando', '02529766142')>],) e {}. Retornou None
+[2025-11-18 17:48:00] Função 'depositar' executada com argumentos ([<PessoaFisica: ('luiz fernando', '02529766142')>],) e {}. Retornou None
+[2025-11-18 17:48:06] Função 'exibir_extrato' executada com argumentos ([<PessoaFisica: ('luiz fernando', '02529766142')>],) e {}. Retornou None
+[2025-11-18 17:48:19] Função 'sacar' executada com argumentos ([<PessoaFisica: ('luiz fernando', '02529766142')>],) e {}. Retornou None
+[2025-11-18 17:48:23] Função 'exibir_extrato' executada com argumentos ([<PessoaFisica: ('luiz fernando', '02529766142')>],) e {}. Retornou None
+[2025-11-18 17:48:31] Função 'depositar' executada com argumentos ([<PessoaFisica: ('luiz fernando', '02529766142')>],) e {}. Retornou None
+[2025-11-18 17:50:33] Função 'criar_cliente' executada com argumentos ([<PessoaFisica: ('luiz fernando', '02529766142')>],) e {}. Retornou None
+[2026-01-05 20:16:25] Função 'criar_cliente' executada com argumentos ([<PessoaFisica: ('luiz', '02529766142')>],) e {}. Retornou None
+[2026-01-05 20:16:43] Função 'criar_conta' executada com argumentos (1, [<PessoaFisica: ('luiz', '02529766142')>], [<ContaCorrente: ('0001', '1', 'luiz')>]) e {}. Retornou None
+[2026-01-05 20:17:12] Função 'depositar' executada com argumentos ([<PessoaFisica: ('luiz', '02529766142')>],) e {}. Retornou None
+[2026-01-05 20:17:22] Função 'exibir_extrato' executada com argumentos ([<PessoaFisica: ('luiz', '02529766142')>],) e {}. Retornou None
+[2026-01-05 20:17:35] Função 'sacar' executada com argumentos ([<PessoaFisica: ('luiz', '02529766142')>],) e {}. Retornou None
+[2026-01-05 20:17:45] Função 'exibir_extrato' executada com argumentos ([<PessoaFisica: ('luiz', '02529766142')>],) e {}. Retornou None

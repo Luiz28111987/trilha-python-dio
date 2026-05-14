@@ -1,6 +1,6 @@
 import textwrap
 from abc import ABC, abstractclassmethod, abstractproperty
-from datetime import datetime
+from datetime import datetime, timezone # CORREÇÃO: Substituído 'UTC' por 'timezone' para compatibilidade com Python < 3.11
 from pathlib import Path
 
 ROOT_PATH = Path(__file__).parent
@@ -36,6 +36,7 @@ class Cliente:
         self.indice_conta = 0
 
     def realizar_transacao(self, conta, transacao):
+        # A regra de limite de transações deve ser verificada antes de registrar
         if len(conta.historico.transacoes_do_dia()) >= 2:
             print("\n@@@ Você excedeu o número de transações permitidas para hoje! @@@")
             return
@@ -125,6 +126,8 @@ class ContaCorrente(Conta):
 
     @classmethod
     def nova_conta(cls, cliente, numero, limite, limite_saques):
+        # O limite e limite_saques são hardcoded no desafio_v2.py:408, mas mantemos o método
+        # de classe flexível
         return cls(numero, cliente, limite, limite_saques)
 
     def sacar(self, valor):
@@ -166,11 +169,12 @@ class Historico:
         return self._transacoes
 
     def adicionar_transacao(self, transacao):
+        # CORREÇÃO: Substituído datetime.UTC por timezone.utc para máxima compatibilidade
         self._transacoes.append(
             {
                 "tipo": transacao.__class__.__name__,
                 "valor": transacao.valor,
-                "data": datetime.utcnow().strftime("%d-%m-%Y %H:%M:%S"),
+                "data": datetime.now(timezone.utc).strftime("%d-%m-%Y %H:%M:%S"),
             }
         )
 
@@ -180,7 +184,8 @@ class Historico:
                 yield transacao
 
     def transacoes_do_dia(self):
-        data_atual = datetime.utcnow().date()
+        # CORREÇÃO: Substituído datetime.UTC por timezone.utc para máxima compatibilidade
+        data_atual = datetime.now(timezone.utc).date()
         transacoes = []
         for transacao in self._transacoes:
             data_transacao = datetime.strptime(transacao["data"], "%d-%m-%Y %H:%M:%S").date()
@@ -233,8 +238,9 @@ class Deposito(Transacao):
 def log_transacao(func):
     def envelope(*args, **kwargs):
         resultado = func(*args, **kwargs)
-        data_hora = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
-        with open(ROOT_PATH / "log.txt", "a") as arquivo:
+        # CORREÇÃO: Substituído datetime.UTC por timezone.utc para máxima compatibilidade
+        data_hora = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
+        with open(ROOT_PATH / "log.txt", "a", encoding="utf-8-sig") as arquivo:
             arquivo.write(
                 f"[{data_hora}] Função '{func.__name__}' executada com argumentos {args} e {kwargs}. "
                 f"Retornou {resultado}\n"
@@ -269,6 +275,7 @@ def recuperar_conta_cliente(cliente):
         return
 
     # FIXME: não permite cliente escolher a conta
+    # Para o propósito do desafio, retorna a primeira conta
     return cliente.contas[0]
 
 
@@ -326,6 +333,7 @@ def exibir_extrato(clientes):
     print("\n================ EXTRATO ================")
     extrato = ""
     tem_transacao = False
+    # Usando o gerador para criar o relatório
     for transacao in conta.historico.gerar_relatorio():
         tem_transacao = True
         extrato += f"\n{transacao['data']}\n{transacao['tipo']}:\n\tR$ {transacao['valor']:.2f}"
@@ -367,6 +375,7 @@ def criar_conta(numero_conta, clientes, contas):
         print("\n@@@ Cliente não encontrado, fluxo de criação de conta encerrado! @@@")
         return
 
+    # Hardcoded limite e limite_saques conforme visto no código original
     conta = ContaCorrente.nova_conta(cliente=cliente, numero=numero_conta, limite=500, limite_saques=50)
     contas.append(conta)
     cliente.contas.append(conta)
@@ -413,4 +422,5 @@ def main():
             print("\n@@@ Operação inválida, por favor selecione novamente a operação desejada. @@@")
 
 
-main()
+if __name__ == "__main__":
+    main()
